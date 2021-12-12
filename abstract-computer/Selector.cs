@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
     // Selector /Multiplexor choose the output value based on the select value
     // Selector will choose i0's value if select is false

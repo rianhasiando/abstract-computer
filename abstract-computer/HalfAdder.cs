@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
-    // HalfAdder hanya menambahkan 2 bit, dan
-    // outputnya ada sum dan carry
-    class HalfAdder
+    // HalfAdder only sums 2 inputs of 1 bit each
+    // and store the result in sum and carry
+    public class HalfAdder
     {
         public int in1;
         public int in2;
@@ -22,8 +16,8 @@ namespace abstractcomputer
             sum = s;
             carry = c;
 
-            AND andCarry = new AND(in1, in2, c);
-            XOR xorSum = new XOR(in1, in2, s);
+            _ = new AND(in1, in2, c);
+            _ = new XOR(in1, in2, s);
         }
     }
 }

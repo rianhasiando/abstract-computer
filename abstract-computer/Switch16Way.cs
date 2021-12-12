@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
     // Switch16Way works like Switch, but the selector is 4 wire,
     // and there are 16 output

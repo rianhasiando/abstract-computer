@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
     // this is selector for two 16bit wires
     class Selector16Bit

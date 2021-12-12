@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HalfAdderTests.cs" />
     <Compile Include="XORTests.cs" />
     <Compile Include="ORTests.cs" />
     <Compile Include="BoardTests.cs" />

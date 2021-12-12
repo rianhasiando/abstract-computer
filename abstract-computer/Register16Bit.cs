@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
     // This is the main component to store data
     // Each register remember 16 bit of data

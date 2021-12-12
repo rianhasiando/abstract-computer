@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace abstractcomputer
+﻿namespace abstractcomputer
 {
     // 65536 registers, each register holds 16 bits
     // so the total size is 1Mibibytes
