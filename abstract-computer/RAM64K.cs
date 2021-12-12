@@ -6,27 +6,43 @@ using System.Threading.Tasks;
 
 namespace abstractcomputer
 {
-    // 65536 registers, each register holds 16 bit
+    // 65536 registers, each register holds 16 bits
+    // so the total size is 1Mibibytes
+    // normally in real world, each register holds 8 bits (1 byte)
     class RAM64K
     {
-        public int[] i_1;
-        public int[] i_0;
-        public int selector;
+        // because there are 65535 registers (2^16), so we need
+        // 16 bit to specify the address
+        // addr holds the list of 16 wire indexes
+        public int[] addr;
+        
+        // index wire to specify whether to store data into
+        // the addressed register or not
+        public int store;
+
+        // the data that would be stored
+        // (ignored if store.value is false)
+        public int[] data;
+        
+        // _out ouputs the CURRENT value of
+        // the addressed register
         public int[] _out;
 
-        // s = 0 => i0
-        // s = 1 => i1
-        public RAM64K(int[] i1, int[] i0, int s, int[] o)
+        
+        public RAM64K(int[] a, int s, int[] d, int[] o)
         {
-            i_1 = i1;
-            i_0 = i0;
-            selector = s;
+            addr = a;
+            store = s;
+            data = d;
             _out = o;
 
-            // 65536 = 16^4
+            // ex: address = 1010 0101 1010 0101
+            // because every Selector16Bit selects 1 of 2 registers
+            // then we need 65535 Selector16Bit, organized in hierarchycal way
+            // (1 - 2 - 4 - 8 ... )
+
             for(int x=0; x<16; x++)
             {
-                Selector sel = new Selector(i1[x], i0[x], s, o[x]);
             }
         }
     }

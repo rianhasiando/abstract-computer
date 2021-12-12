@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace abstractcomputer
 {
+    // this is selector for two 16bit wires
     class Selector16Bit
     {
         public int[] i_1;
@@ -13,8 +14,8 @@ namespace abstractcomputer
         public int selector;
         public int[] _out;
 
-        // s = 0 => i2
-        // s = 1 => i1
+        // if s'value is false, then all i0's values will be selected
+        // otherwise i1's values will be selected
         public Selector16Bit(int[] i1, int[] i0, int s, int[] o)
         {
             i_1 = i1;

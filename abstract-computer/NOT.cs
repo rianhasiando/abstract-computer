@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace abstractcomputer
 {
-    class NOT
+    public class NOT
     {
         public int _in;
         public int _out;

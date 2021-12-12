@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace abstractcomputer
 {
-    class OR
+    public class OR
     {
         public int in1;
         public int in2;
@@ -21,7 +21,7 @@ namespace abstractcomputer
             
             NOT gateNot2 = new NOT(i2, Board.CreateWire());
 
-            int gateNand = Board.CreateNAND(gateNot1._out, gateNot2._out, o);
+            _ = Board.CreateNAND(gateNot1._out, gateNot2._out, o);
         }
     }
 }

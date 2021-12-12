@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace abstractcomputer
 {
+    // Switch / Demultiplexor determines if the data is outputted to 
+    // out_1 or out_0
+    // if selector is false, then data is outputted to out_0
+    // otherwise to out_1
     class Switch
     {
         public int data;
@@ -21,7 +25,7 @@ namespace abstractcomputer
             out_0 = o0;
 
             AND c1 = new AND(selector, data, out_1);
-            AND c2 = new AND(
+            AND c0 = new AND(
                 new NOT(selector, Board.CreateWire())._out,
                 data,
                 out_0

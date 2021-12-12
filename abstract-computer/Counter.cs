@@ -21,6 +21,7 @@ namespace abstractcomputer
 
             int[] wOutInc = new int[16], 
                   wOutSelector = new int[16];
+
             for(int x=0;x<16;x++)
             {
                 wOutInc[x] = Board.CreateWire();
