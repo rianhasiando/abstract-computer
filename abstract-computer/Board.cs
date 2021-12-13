@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace abstractcomputer
 {
@@ -96,19 +95,12 @@ namespace abstractcomputer
             {
                 // first, get all the impacted gates by this wire
                 // then update every output wire of those gates
-
-                Debug.WriteLine("Changing wire {0} to {1}", wire, newValue);
                 wires[wire].value = newValue;
 
                 // lookup the end gates connected to this wire
                 foreach (int g in wires[wire].endGate)
                 {
                     int wireIndex = gates[g].output;
-
-                    Debug.WriteLine(
-                        "Wire {0} is connected to gate {1} which has output wire of {2}", 
-                        wire, g, wireIndex
-                    );
 
                     // calculate the new value
                     bool v = gates[g].Calc();
@@ -118,29 +110,15 @@ namespace abstractcomputer
                     {
                         // update the value
                         wires[wireIndex].value = v;
-                        Debug.WriteLine(
-                            "Value of gate {0} is updated to {1}, affecting output wire {2}", 
-                            g, v, wireIndex
-                        );
 
                         // add the wire index to the queue
                         if (!wireToUpdate.Contains(wireIndex))
                             wireToUpdate.Enqueue(wireIndex);
-
-                        Debug.WriteLine("Updated wireToUpdate:");
-                        foreach (int w in wireToUpdate)
-                        {
-                            Debug.WriteLine(w);
-                        }
                     }
                 }
                 
                 while (wireToUpdate.Count > 0)
                 {
-                    Debug.WriteLine(
-                        "Looping wire {0}",
-                        wireToUpdate.Peek()
-                    );
                     // the left most wire
                     Wire currentWire = wires[wireToUpdate.Peek()];
 
@@ -149,44 +127,22 @@ namespace abstractcomputer
                     foreach (int g in currentWire.endGate)
                     {
                         int wireIndex = gates[g].output;
-
-                        Debug.WriteLine(
-                            "Wire {0} is connected to gate {1}, which has output wire of {2}",
-                            wireToUpdate.Peek(), g, wireIndex
-                        );
-
                         bool v = gates[g].Calc();
 
                         // skip if the value doesn't change
                         if (wires[wireIndex].value != v)
                         {
                             wires[wireIndex].value = v;
-                            Debug.WriteLine(
-                                "Value of gate {0} is updated to {1}, affecting output wire {2}",
-                                g, v, wireIndex
-                            );
 
                             // add to the queue to be updated
                             if (!wireToUpdate.Contains(wireIndex))
                                 wireToUpdate.Enqueue(wireIndex);
-
-                            Debug.WriteLine("Updated wireToUpdate:");
-                            foreach (int w in wireToUpdate)
-                            {
-                                Debug.WriteLine(w);
-                            }
                         }
                     }
                     // remove this wire from queue
                     wireToUpdate.Dequeue();
-                    Debug.WriteLine("Updated wireToUpdate:");
-                    foreach (int w in wireToUpdate)
-                    {
-                        Debug.WriteLine(w);
-                    }
                 }
             }
-            Debug.WriteLine("-------------");
         }
 
     }

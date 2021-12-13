@@ -1,8 +1,8 @@
 ﻿namespace abstractcomputer
 {
-    // FullAdder menambahkan 3 bit input, dan
-    // salah satu inputnya adalah carry
-    class FullAdder
+    // FullAdder add 3 inputs of 1 bit each
+    // one of the inputs is the carry
+    public class FullAdder
     {
         public int in1;
         public int in2;
@@ -19,9 +19,9 @@
             carry = c;
 
             XOR xorBC = new XOR(in2, in3, Board.CreateWire());
-            XOR rSum = new XOR(in1, xorBC._out, s);
+            _ = new XOR(in1, xorBC._out, s);
 
-            OR rCarry = new OR(
+            _ = new OR(
                 new AND(in2, in3, Board.CreateWire())._out,
                 new AND(in1, xorBC._out, Board.CreateWire())._out,
                 c

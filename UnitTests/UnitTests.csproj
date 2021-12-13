@@ -48,6 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Counter16BitTests.cs" />
+    <Compile Include="Adder16BitTests.cs" />
+    <Compile Include="LatchTests.cs" />
+    <Compile Include="FullAdderTests.cs" />
     <Compile Include="HalfAdderTests.cs" />
     <Compile Include="XORTests.cs" />
     <Compile Include="ORTests.cs" />

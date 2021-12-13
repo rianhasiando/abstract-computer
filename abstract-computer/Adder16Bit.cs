@@ -1,6 +1,8 @@
 ﻿namespace abstractcomputer
 {
-    class Adder16Bit
+	// Adder16Bit adds two 16-bit input
+	// and output the sum
+    public class Adder16Bit
     {
         public int[] a;
         public int[] b;

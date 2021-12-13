@@ -1,6 +1,8 @@
 ﻿namespace abstractcomputer
 {
-    class Latch
+	// Latch can store 1 bit of data (keep the state of data - true or false - over time)
+	// it has store flag, which if set to true, then the data will be updated
+    public class Latch
     {
         public int data;
         public int store;

@@ -1,12 +1,16 @@
 ﻿namespace abstractcomputer
 {
-    class Counter
+	// Counter increments data by 1, or sets the data
+	// if clock and store is false, then Counter increments the data
+	// if clock is false and store is one, then Counter sets the data to the input
+	// if clock is true, then Counter sets out to data
+    public class Counter16Bit
     {
         public int store;
         public int[] _in;
         public int[] _out;
 
-        public Counter(int s, int[] i, int cl, int[] o)
+        public Counter16Bit(int s, int[] i, int cl, int[] o)
         {
             store = s;
             _in = i;
