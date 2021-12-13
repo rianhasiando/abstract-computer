@@ -15,19 +15,19 @@ namespace abstractcomputer
         // output wire
         public int output;
 
-        // Calc() calculates the output value
-        // based on CURRENT value on input wires
-        // and doesn't store it in output wire
-        public bool Calc()
+		public NAND(int i1, int i2, int o1)
+		{
+			input1 = i1;
+			input2 = i2;
+			output = o1;
+		}
+
+		// Calc() calculates the output value
+		// based on CURRENT value on input wires
+		// and doesn't store it in output wire
+		public bool Calc()
         {
             return !(Board.wires[input1].value && Board.wires[input2].value);
-        }
-
-        public NAND(int i1, int i2, int o1)
-        {
-            input1 = i1;
-            input2 = i2;
-            output = o1;
         }
     }
 
