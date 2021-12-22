@@ -8,8 +8,7 @@ namespace UnitTests
 	{
         public Adder16BitTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -53,7 +52,7 @@ namespace UnitTests
 			int result = 0;
 			for (int i = 0; i < 16; i++)
 			{
-				if (Board.wires[wOut[i]].value)
+				if (Board.wVal[wOut[i]])
 					result += multiplier;
 				multiplier *= 2;
 			}

@@ -8,8 +8,7 @@ namespace UnitTests
     {
         public NOTTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -19,7 +18,7 @@ namespace UnitTests
             int wOut = Board.CreateWire();
             NOT _ = new NOT(wIn, wOut);
 
-            Assert.IsTrue(Board.wires[wOut].value);
+            Assert.IsTrue(Board.wVal[wOut]);
         }
         [TestMethod]
         public void NOT_InputTrue_OutputFalse()
@@ -29,7 +28,7 @@ namespace UnitTests
             NOT _ = new NOT(wIn, wOut);
 
             Board.ChangeWireValue(wIn, true);
-            Assert.IsFalse(Board.wires[wOut].value);
+            Assert.IsFalse(Board.wVal[wOut]);
         }
     }
 }

@@ -2,7 +2,7 @@
 {
     // This is the main component to store data
     // Each register remember 16 bit of data
-    class Register16Bit
+    public class Register16Bit
     {
         // if store wire value is true, then 
         // all the value in _in wires will be stored
@@ -22,7 +22,7 @@
 
             for(int a=0;a<16;a++)
             {
-                FlipFlop f = new FlipFlop(s, i[a], cl, o[a]);
+                _ = new FlipFlop(s, i[a], cl, o[a]);
             }
         }
     }

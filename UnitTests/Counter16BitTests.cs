@@ -9,8 +9,7 @@ namespace UnitTests
 	{
         public Counter16BitTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -29,16 +28,52 @@ namespace UnitTests
 
             _ = new Counter16Bit(wStore, wIn, wClock, wOut);
 
-			Debug.WriteLine("{0} gates, {1} wires", Board.gates.Count, Board.wires.Count);
+			Debug.WriteLine("{0} NAND gates, {1} wires", Board.currentIdxGates + 1, Board.currentIdxWires + 1);
 
-			for (int i = 0; i < 100000; i++)
-			{
-				Board.ChangeWireValue(wClock, true);
-				Board.ChangeWireValue(wClock, false);
-			}
-			Assert.AreEqual(1, getIntRepresentation(wOut));
+			Debug.WriteLine(getIntRepresentation(wOut)); // 0
+
+			Board.ChangeWireValue(wClock, true);
+			Debug.WriteLine(getIntRepresentation(wOut)); // 1
+
+			Board.ChangeWireValue(wClock, false);
+			Debug.WriteLine(getIntRepresentation(wOut)); // 1
+
+			Board.ChangeWireValue(wClock, true);
+			Debug.WriteLine(getIntRepresentation(wOut)); // 2
+
+			Board.ChangeWireValue(wClock, false);
+			Debug.WriteLine(getIntRepresentation(wOut)); // 2
+
+			Assert.AreEqual(2, getIntRepresentation(wOut));
 			
 
+		}
+
+		[TestMethod]
+		public void Counter16Bit_TestAssign()
+		{
+			int[] wIn = new int[16];
+			int wStore = Board.CreateWire();
+			int[] wOut = new int[16];
+			int wClock = Board.CreateWire();
+
+			for (int i = 0; i < 16; i++)
+			{
+				wIn[i] = Board.CreateWire();
+				wOut[i] = Board.CreateWire();
+			}
+
+			_ = new Counter16Bit(wStore, wIn, wClock, wOut);
+
+			Board.ChangeWireValue(wStore, true);
+			bool[] bVal = getBoolRepresentation(155);
+			for (int i = 0; i< 16; i++)
+			{
+				Board.ChangeWireValue(wIn[i], bVal[i]);
+			}
+			Assert.AreEqual(0, getIntRepresentation(wOut));
+			Board.ChangeWireValue(wClock, true);
+			Assert.AreEqual(155, getIntRepresentation(wOut));
 		}
 
 		// return the integer representation of 16 wire
@@ -48,7 +83,7 @@ namespace UnitTests
 			int multiplier = 1;
 			for (int i = 0; i < 16; i++)
 			{
-				if (Board.wires[w[i]].value) result += multiplier;
+				if (Board.wVal[w[i]]) result += multiplier;
 				multiplier *= 2;
 			}
 			return result;
@@ -59,7 +94,7 @@ namespace UnitTests
 		{
 			bool[] result = new bool[16];
 			int multiplier = 1;
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 16; i++)
 			{
 				result[i] = (multiplier & n) == multiplier;
 				multiplier *= 2;

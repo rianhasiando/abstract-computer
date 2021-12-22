@@ -8,9 +8,8 @@ namespace UnitTests
     {
         public ANDTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
-        }
+			Board.Reset();
+		}
 
         [TestMethod]
         public void AND_TruthTable()
@@ -19,18 +18,18 @@ namespace UnitTests
             int wIn2 = Board.CreateWire();
             int wOut = Board.CreateWire();
             _ = new AND(wIn1, wIn2, wOut);
-            Assert.IsFalse(Board.wires[wOut].value);
+            Assert.IsFalse(Board.wVal[wOut]);
 
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsFalse(Board.wires[wOut].value);
+			Assert.IsFalse(Board.wVal[wOut]);
 
-            Board.ChangeWireValue(wIn2, true);
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, false);
-            Assert.IsFalse(Board.wires[wOut].value);
+			Assert.IsFalse(Board.wVal[wOut]);
 
-            Board.ChangeWireValue(wIn2, true);
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsTrue(Board.wires[wOut].value);
-        }
+			Assert.IsTrue(Board.wVal[wOut]);
+		}
     }
 }

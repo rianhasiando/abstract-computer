@@ -19,11 +19,14 @@ namespace abstractcomputer
         public Main()
         {
             InitializeComponent();
-        }
-        
-        private void label1_Click(object sender, EventArgs e)
-        {
+			Board.wVal[9999999] = true;
 
+		}
+
+		private void label1_Click(object sender, EventArgs e)
+        {
+		
         }
+
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace abstractcomputer
 {
-    // Selector /Multiplexor choose the output value based on the select value
+    // Selector/Multiplexor choose the output value based on the select value
     // Selector will choose i0's value if select is false
     // if the select is true, then i1 will be choosed
-    class Selector
+    public class Selector
     {
         public int i1;
         public int i0;
@@ -18,16 +18,14 @@
             _out = o;
 
             int _ = Board.CreateNAND(
-                Board.gates[
-                    Board.CreateNAND(
-                        new NOT(s, Board.CreateWire())._out,
-                        i0,
-                        Board.CreateWire()
-                    )
-                ].output,
-                Board.gates[
-                    Board.CreateNAND(s, i1, Board.CreateWire())
-                ].output,
+				Board.gOutputWire[
+					Board.CreateNAND(
+						new NOT(s, Board.CreateWire())._out,
+						i0,
+						Board.CreateWire()
+					)
+				],
+				Board.gOutputWire[Board.CreateNAND(s, i1, Board.CreateWire())],
                 _out
             );
         }

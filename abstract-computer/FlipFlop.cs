@@ -1,6 +1,13 @@
 ﻿namespace abstractcomputer
 {
-    class FlipFlop
+	// FlipFlop (Data flip-flop) stores and remembers one bit data
+
+	// store     data     clock     out
+	// false     Any      false     out (nothing changed)
+	// true      Any      false     out (but data has changed)
+	// Any       Any      true      new output (following the stored data)
+
+    public class FlipFlop
     {
         public int data;
         public int store;

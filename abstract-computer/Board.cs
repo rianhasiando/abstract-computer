@@ -1,54 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace abstractcomputer
 {
-    // NAND is the "main" logic gate
-    // the implementation is straight (doesn't depend on other gates)
-    public class NAND
-    {
-        // input wire 1
-        public int input1;
-
-        // input wire 2
-        public int input2;
-
-        // output wire
-        public int output;
-
-		public NAND(int i1, int i2, int o1)
-		{
-			input1 = i1;
-			input2 = i2;
-			output = o1;
-		}
-
-		// Calc() calculates the output value
-		// based on CURRENT value on input wires
-		// and doesn't store it in output wire
-		public bool Calc()
-        {
-            return !(Board.wires[input1].value && Board.wires[input2].value);
-        }
-    }
-
-    // the wire abstraction
-    public class Wire
-    {
-        // the default value is false
-        // (no electricity)
-        public bool value = false;
-
-        // every wire can be connected to many gates
-        // so the index of gates need to be remembered
-        public List<int> endGate = new List<int>();
-    }
-
     // the "motherboard"
     public static class Board
     {
-        // a board consists of wires and gates
-        public static List<Wire> wires = new List<Wire>();
-        public static List<NAND> gates = new List<NAND>();
+		// a board consists of wires and gates
+		public static int currentIdxWires = -1;
+        public static BitArray wVal = new BitArray(100000000);
+		public static List<int>[] wEndGates = new List<int>[100000000];
+
+		public static int currentIdxGates = -1;
+		public static int[] gInputWire1 = new int[100000000];
+		public static int[] gInputWire2 = new int[100000000];
+		public static int[] gOutputWire = new int[100000000];
 
         // only used to cascade-update the wires value
         private static Queue<int> wireToUpdate = new Queue<int>();
@@ -58,92 +25,110 @@ namespace abstractcomputer
         // the return value is the index of gate
         public static int CreateNAND(int wIn1, int wIn2, int wOut)
         {
-            NAND newNAND = new NAND(wIn1, wIn2, wOut);
-            gates.Add(newNAND);
+            // index of the currently added gates
+            int gIdx = ++currentIdxGates;
 
-            // index of the currently added gates (through gates.Add())
-            // is just the list size - 1
-            int idx = gates.Count - 1;
+			gInputWire1[gIdx] = wIn1;
+			gInputWire2[gIdx] = wIn2;
+			gOutputWire[gIdx] = wOut;
 
             // add the gate index into the input wires
             // check if the gate index is already present
-            if (!wires[wIn1].endGate.Contains(idx))
-                wires[wIn1].endGate.Add(idx);
-            if (!wires[wIn2].endGate.Contains(idx))
-                wires[wIn2].endGate.Add(idx);
+            if (!wEndGates[wIn1].Contains(gIdx))
+				wEndGates[wIn1].Add(gIdx);
+			if (!wEndGates[wIn2].Contains(gIdx))
+				wEndGates[wIn2].Add(gIdx);
 
-            // calculate for the first time
-            wires[wOut].value = newNAND.Calc();
-            return idx;
+			// calculate for the first time
+			wVal[wOut] = !(wVal[wIn1] && wVal[wIn2]);
+            return gIdx;
         }
 
         // create a new wire, return the index of the currently added wire
         public static int CreateWire()
         {
-            wires.Add(new Wire());
-            return wires.Count-1;
+			int wIdx = ++currentIdxWires;
+			wEndGates[wIdx] = new List<int>();
+			return wIdx;
         }
 
         // to change the wire value, 
         // based on the wire index, and the new value
         public static void ChangeWireValue(int wire, bool newValue)
         {
-            wireToUpdate = new Queue<int>();
-            
-            // if the value isn't changed then nothing to do
-            if (wires[wire].value != newValue)
+            wireToUpdate.Clear();
+
+			// if the value isn't changed then nothing to do
+			if (wVal[wire] != newValue)
             {
                 // first, get all the impacted gates by this wire
                 // then update every output wire of those gates
-                wires[wire].value = newValue;
+                wVal[wire] = newValue;
 
                 // lookup the end gates connected to this wire
-                foreach (int g in wires[wire].endGate)
+                foreach (int gIdx in wEndGates[wire])
                 {
-                    int wireIndex = gates[g].output;
+                    int wOut = gOutputWire[gIdx];
 
                     // calculate the new value
-                    bool v = gates[g].Calc();
+                    bool v = !(wVal[gInputWire1[gIdx]] && wVal[gInputWire2[gIdx]]);
 
                     // if the value is just the same, skip
-                    if (wires[wireIndex].value != v)
+                    if (wVal[wOut] != v)
                     {
-                        // update the value
-                        wires[wireIndex].value = v;
+						// update the value
+						wVal[wOut] = v;
 
                         // add the wire index to the queue
-                        if (!wireToUpdate.Contains(wireIndex))
-                            wireToUpdate.Enqueue(wireIndex);
+                        if (!wireToUpdate.Contains(wOut))
+                            wireToUpdate.Enqueue(wOut);
                     }
                 }
                 
                 while (wireToUpdate.Count > 0)
                 {
                     // the left most wire
-                    Wire currentWire = wires[wireToUpdate.Peek()];
+                    int currentWire = wireToUpdate.Peek();
 
                     // check which gates this wire is connected to,
                     // then update the value
-                    foreach (int g in currentWire.endGate)
+                    foreach (int gIdx in wEndGates[currentWire])
                     {
-                        int wireIndex = gates[g].output;
-                        bool v = gates[g].Calc();
+						int wOut = gOutputWire[gIdx];
 
-                        // skip if the value doesn't change
-                        if (wires[wireIndex].value != v)
-                        {
-                            wires[wireIndex].value = v;
+						// calculate the new value
+						bool v = !(wVal[gInputWire1[gIdx]] && wVal[gInputWire2[gIdx]]);
 
-                            // add to the queue to be updated
-                            if (!wireToUpdate.Contains(wireIndex))
-                                wireToUpdate.Enqueue(wireIndex);
-                        }
-                    }
+						// if the value is just the same, skip
+						if (wVal[wOut] != v)
+						{
+							// update the value
+							wVal[wOut] = v;
+
+							// add the wire index to the queue
+							if (!wireToUpdate.Contains(wOut))
+								wireToUpdate.Enqueue(wOut);
+						}
+					}
                     // remove this wire from queue
                     wireToUpdate.Dequeue();
                 }
             }
         }
+
+		public static void Reset()
+		{
+			wVal.SetAll(false);
+			Array.Clear(wEndGates, 0, wEndGates.Length);
+			currentIdxWires = -1;
+
+			Array.Clear(gInputWire1, 0, gInputWire1.Length);
+			Array.Clear(gInputWire2, 0, gInputWire2.Length);
+			Array.Clear(gOutputWire, 0, gOutputWire.Length);
+			currentIdxGates = -1;
+
+			wireToUpdate.Clear();
+		}
 
     }
 

@@ -8,8 +8,7 @@ namespace UnitTests
     {
         public HalfAdderTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -24,25 +23,25 @@ namespace UnitTests
 
             // win2    win1    wSum   wCarry
             // false + false = false, false
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarry].value);
+            Assert.IsFalse(Board.wVal[wSum]);
+            Assert.IsFalse(Board.wVal[wCarry]);
 
             // false + true = true, false
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarry].value);
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsFalse(Board.wVal[wCarry]);
 
-            // true + false = true, false
-            Board.ChangeWireValue(wIn2, true);
+			// true + false = true, false
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, false);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarry].value);
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsFalse(Board.wVal[wCarry]);
 
-            // true + true = false, true
-            Board.ChangeWireValue(wIn2, true);
+			// true + true = false, true
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsTrue(Board.wires[wCarry].value);
-        }
+			Assert.IsFalse(Board.wVal[wSum]);
+			Assert.IsTrue(Board.wVal[wCarry]);
+		}
     }
 }

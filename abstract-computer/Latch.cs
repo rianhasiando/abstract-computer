@@ -22,12 +22,12 @@
             );
             int nandRight = Board.CreateNAND(
                 o,
-                Board.gates[nand2].output,
+                Board.gOutputWire[nand2],
                 Board.CreateWire()
             );
             int nandLeft = Board.CreateNAND(
-                Board.gates[nand1].output,
-                Board.gates[nandRight].output,
+                Board.gOutputWire[nand1],
+                Board.gOutputWire[nandRight],
                 o
             );
         }

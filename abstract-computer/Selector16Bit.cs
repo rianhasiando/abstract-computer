@@ -1,7 +1,7 @@
 ﻿namespace abstractcomputer
 {
     // this is selector for two 16bit wires
-    class Selector16Bit
+    public class Selector16Bit
     {
         public int[] i_1;
         public int[] i_0;

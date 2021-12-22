@@ -8,8 +8,7 @@ namespace UnitTests
     {
         public FullAdderTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -25,57 +24,57 @@ namespace UnitTests
 
             // wIn2    wIn1    wCarryIn    wSum   wCarryOut
             // false + false + false     = false, false
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarryOut].value);
+            Assert.IsFalse(Board.wVal[wSum]);
+            Assert.IsFalse(Board.wVal[wCarryOut]);
 
             // false + false + true = true, false
             Board.ChangeWireValue(wIn2, false);
             Board.ChangeWireValue(wIn1, false);
             Board.ChangeWireValue(wCarryIn, true);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarryOut].value);
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsFalse(Board.wVal[wCarryOut]);
 
-            // false + true + false = true, false
-            Board.ChangeWireValue(wIn2, false);
+			// false + true + false = true, false
+			Board.ChangeWireValue(wIn2, false);
             Board.ChangeWireValue(wIn1, true);
             Board.ChangeWireValue(wCarryIn, false);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarryOut].value);
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsFalse(Board.wVal[wCarryOut]);
 
-            // false + true + true = false, true
-            Board.ChangeWireValue(wIn2, false);
+			// false + true + true = false, true
+			Board.ChangeWireValue(wIn2, false);
             Board.ChangeWireValue(wIn1, true);
             Board.ChangeWireValue(wCarryIn, true);
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsTrue(Board.wires[wCarryOut].value);
+			Assert.IsFalse(Board.wVal[wSum]);
+			Assert.IsTrue(Board.wVal[wCarryOut]);
 
-            // true + false + false = true, false
-            Board.ChangeWireValue(wIn2, true);
+			// true + false + false = true, false
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, false);
             Board.ChangeWireValue(wCarryIn, false);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsFalse(Board.wires[wCarryOut].value);
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsFalse(Board.wVal[wCarryOut]);
 
-            // true + false + true = false, true
-            Board.ChangeWireValue(wIn2, true);
+			// true + false + true = false, true
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, false);
             Board.ChangeWireValue(wCarryIn, true);
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsTrue(Board.wires[wCarryOut].value);
+			Assert.IsFalse(Board.wVal[wSum]);
+			Assert.IsTrue(Board.wVal[wCarryOut]);
 
-            // true + true + false = false, true
-            Board.ChangeWireValue(wIn2, true);
+			// true + true + false = false, true
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, true);
             Board.ChangeWireValue(wCarryIn, false);
-            Assert.IsFalse(Board.wires[wSum].value);
-            Assert.IsTrue(Board.wires[wCarryOut].value);
+			Assert.IsFalse(Board.wVal[wSum]);
+			Assert.IsTrue(Board.wVal[wCarryOut]);
 
-            // true + true + true = true, true
-            Board.ChangeWireValue(wIn2, true);
+			// true + true + true = true, true
+			Board.ChangeWireValue(wIn2, true);
             Board.ChangeWireValue(wIn1, true);
             Board.ChangeWireValue(wCarryIn, true);
-            Assert.IsTrue(Board.wires[wSum].value);
-            Assert.IsTrue(Board.wires[wCarryOut].value);
-        }
+			Assert.IsTrue(Board.wVal[wSum]);
+			Assert.IsTrue(Board.wVal[wCarryOut]);
+		}
     }
 }

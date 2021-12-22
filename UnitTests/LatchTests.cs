@@ -8,8 +8,7 @@ namespace UnitTests
 	{
         public LatchTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
+            Board.Reset();
         }
 
         [TestMethod]
@@ -21,19 +20,19 @@ namespace UnitTests
             _ = new Latch(wStore, wData, wOut);
 
 			// first time is false, because the wStore and wData is false
-            Assert.IsFalse(Board.wires[wOut].value);
+            Assert.IsFalse(Board.wVal[wOut]);
 
             Board.ChangeWireValue(wStore, true);
 			// still false, because wData is false
-            Assert.IsFalse(Board.wires[wOut].value);
+            Assert.IsFalse(Board.wVal[wOut]);
 
 			// true, because wStore is true and wData is true
             Board.ChangeWireValue(wData, true);
-            Assert.IsTrue(Board.wires[wOut].value);
+            Assert.IsTrue(Board.wVal[wOut]);
 
 			// Nothing changed
             Board.ChangeWireValue(wStore, false);
-            Assert.IsTrue(Board.wires[wOut].value);
+            Assert.IsTrue(Board.wVal[wOut]);
         }
     }
 }

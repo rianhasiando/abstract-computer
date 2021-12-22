@@ -9,18 +9,17 @@ namespace UnitTests
     {
         public BoardTests()
         {
-            Board.wires.Clear();
-            Board.gates.Clear();
-        }
+			Board.Reset();
+		}
 
         [TestMethod]
         public void Board_CreateNAND()
         {
             _ = Board.CreateNAND(Board.CreateWire(), Board.CreateWire(), Board.CreateWire());
-            if (Board.wires.Count != 3)
-                Assert.Fail("Wire count should equal to 3, got {0}", Board.wires.Count);
-            if (Board.gates.Count != 1)
-                Assert.Fail("Gate count should equal to 1, got {0}", Board.gates.Count);
+            if (Board.currentIdxWires+1 != 3)
+                Assert.Fail("Wire count should equal to 3, got {0}", Board.currentIdxWires + 1);
+            if (Board.currentIdxGates+1 != 1)
+                Assert.Fail("Gate count should equal to 1, got {0}", Board.currentIdxGates + 1);
         }
 
         [TestMethod]
@@ -31,20 +30,20 @@ namespace UnitTests
             _ = Board.CreateNAND(wIn1, wIn2, Board.CreateWire());
 
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsTrue(Board.wires[wIn1].value);
-            Assert.IsFalse(Board.wires[wIn2].value);
+            Assert.IsTrue(Board.wVal[wIn1]);
+            Assert.IsFalse(Board.wVal[wIn2]);
 
             Board.ChangeWireValue(wIn1, false);
-            Assert.IsFalse(Board.wires[wIn1].value);
-            Assert.IsFalse(Board.wires[wIn2].value);
+            Assert.IsFalse(Board.wVal[wIn1]);
+            Assert.IsFalse(Board.wVal[wIn2]);
 
             Board.ChangeWireValue(wIn2, true);
-            Assert.IsFalse(Board.wires[wIn1].value);
-            Assert.IsTrue(Board.wires[wIn2].value);
+            Assert.IsFalse(Board.wVal[wIn1]);
+            Assert.IsTrue(Board.wVal[wIn2]);
 
             Board.ChangeWireValue(wIn2, false);
-            Assert.IsFalse(Board.wires[wIn1].value);
-            Assert.IsFalse(Board.wires[wIn2].value);
+            Assert.IsFalse(Board.wVal[wIn1]);
+            Assert.IsFalse(Board.wVal[wIn2]);
         }
 
         [TestMethod]
@@ -56,21 +55,21 @@ namespace UnitTests
             _ = Board.CreateNAND(wIn1, wIn2, wOut);
 
             // false NAND false = true
-            Assert.IsTrue(Board.wires[wOut].value);
+            Assert.IsTrue(Board.wVal[wOut]);
 
             // false NAND true  = true
             Board.ChangeWireValue(wIn1, true);
-            Assert.IsTrue(Board.wires[wOut].value);
+            Assert.IsTrue(Board.wVal[wOut]);
 
             // true NAND false  = true
             Board.ChangeWireValue(wIn1, false);
             Board.ChangeWireValue(wIn2, true);
-            Assert.IsTrue(Board.wires[wOut].value);
+			Assert.IsTrue(Board.wVal[wOut]);
 
-            // true NAND true   = false
-            Board.ChangeWireValue(wIn1, true);
-            Assert.IsFalse(Board.wires[wOut].value);
-        }
+			// true NAND true   = false
+			Board.ChangeWireValue(wIn1, true);
+			Assert.IsFalse(Board.wVal[wOut]);
+		}
 
         [TestMethod]
         public void Board_OutputWireMultipleNANDs_ShouldUpdateAll()
@@ -84,23 +83,23 @@ namespace UnitTests
             _ = Board.CreateNAND(wOut1, wIn3, wOut2);
 
             // false NAND false = true
-            Assert.IsTrue(Board.wires[wOut1].value);
+            Assert.IsTrue(Board.wVal[wOut1]);
             // true NAND false = true
-            Assert.IsTrue(Board.wires[wOut2].value);
+            Assert.IsTrue(Board.wVal[wOut2]);
 
             Board.ChangeWireValue(wIn1, true);
             // true NAND false = true
-            Assert.IsTrue(Board.wires[wOut1].value);
-            Assert.IsTrue(Board.wires[wOut2].value);
+            Assert.IsTrue(Board.wVal[wOut1]);
+            Assert.IsTrue(Board.wVal[wOut2]);
 
             Board.ChangeWireValue(wIn2, true);
-            Assert.IsFalse(Board.wires[wOut1].value);
+            Assert.IsFalse(Board.wVal[wOut1]);
 
             Board.ChangeWireValue(wIn1, false);
             Board.ChangeWireValue(wIn2, false);
             Board.ChangeWireValue(wIn3, true);
-            Assert.IsTrue(Board.wires[wOut1].value);
-            Assert.IsFalse(Board.wires[wOut2].value);
+            Assert.IsTrue(Board.wVal[wOut1]);
+            Assert.IsFalse(Board.wVal[wOut2]);
         }
     }
 }

@@ -25,13 +25,10 @@
                 wOutSelector[x] = Board.CreateWire();
             }
 
-            Register16Bit r = new Register16Bit(
+            _ = new Register16Bit(
                 new Selector16Bit(
                     i,
-                    new Increment16Bit(
-                        o,
-                        wOutInc
-                    )._out,
+                    new Increment16Bit(o, wOutInc)._out,
                     s,
                     wOutSelector
                 )._out,
