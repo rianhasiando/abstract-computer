@@ -1,23 +1,24 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using abstractcomputer;
 namespace UnitTests
 {
-    [TestClass]
-    public class Counter16BitTests
+	[TestClass]
+	public class Counter16BitTests
 	{
-        public Counter16BitTests()
-        {
-            Board.Reset();
-        }
+		public string[] wireNames = new string[500];
 
-        [TestMethod]
-        public void Counter16Bit_TestIncrement()
-        {
-            int[] wIn = new int[16];
-            int wStore = Board.CreateWire();
-            int[] wOut = new int[16];
+		public Counter16BitTests()
+		{
+			Board.Reset();
+		}
+
+		[TestMethod]
+		public void Counter16Bit_TestIncrement()
+		{
+			int[] wIn = new int[16];
+			int wStore = Board.CreateWire();
+			int[] wOut = new int[16];
 			int wClock = Board.CreateWire();
 
 			for (int i = 0; i < 16; i++)
@@ -26,27 +27,27 @@ namespace UnitTests
 				wOut[i] = Board.CreateWire();
 			}
 
-            _ = new Counter16Bit(wStore, wIn, wClock, wOut);
+			Counter16Bit c = new Counter16Bit(wStore, wIn, wClock, wOut);
 
 			Debug.WriteLine("{0} NAND gates, {1} wires", Board.currentIdxGates + 1, Board.currentIdxWires + 1);
 
-			Debug.WriteLine(getIntRepresentation(wOut)); // 0
+			Debug.WriteLine("Origin:");
+			 // 0
 
 			Board.ChangeWireValue(wClock, true);
-			Debug.WriteLine(getIntRepresentation(wOut)); // 1
+			 // 1
 
 			Board.ChangeWireValue(wClock, false);
-			Debug.WriteLine(getIntRepresentation(wOut)); // 1
+			 // 1
 
 			Board.ChangeWireValue(wClock, true);
-			Debug.WriteLine(getIntRepresentation(wOut)); // 2
+			 // 2
 
 			Board.ChangeWireValue(wClock, false);
-			Debug.WriteLine(getIntRepresentation(wOut)); // 2
+			 // 2
 
 			Assert.AreEqual(2, getIntRepresentation(wOut));
 			
-
 		}
 
 		[TestMethod]
@@ -101,5 +102,5 @@ namespace UnitTests
 			}
 			return result;
 		}
-    }
+	}
 }

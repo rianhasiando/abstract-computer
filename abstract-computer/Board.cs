@@ -56,7 +56,6 @@ namespace abstractcomputer
         // based on the wire index, and the new value
         public static void ChangeWireValue(int wire, bool newValue)
         {
-            wireToUpdate.Clear();
 
 			// if the value isn't changed then nothing to do
 			if (wVal[wire] != newValue)
