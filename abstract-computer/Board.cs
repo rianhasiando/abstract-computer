@@ -35,11 +35,8 @@ namespace abstractcomputer
 			wEndGates[wIn1].Add(gIdx);
 			wEndGates[wIn2].Add(gIdx);
 
-			// calculate for the first time
-			wVal[wOut] = !(wVal[wIn1] && wVal[wIn2]);
-
-			// Check for the endgates of this wire
-			CheckChangedGates(wOut);
+			// update wire value
+			ChangeWireValue(wOut, !(wVal[wIn1] && wVal[wIn2]));
 			
 			return gIdx;
 		}
