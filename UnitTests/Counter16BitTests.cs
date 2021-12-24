@@ -1,6 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using abstractcomputer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using abstractcomputer;
 namespace UnitTests
 {
 	[TestClass]
@@ -29,25 +29,12 @@ namespace UnitTests
 
 			Counter16Bit c = new Counter16Bit(wStore, wIn, wClock, wOut);
 
-			Debug.WriteLine("{0} NAND gates, {1} wires", Board.currentIdxGates + 1, Board.currentIdxWires + 1);
-
-			Debug.WriteLine("Origin:");
-			 // 0
-
 			Board.ChangeWireValue(wClock, true);
-			 // 1
-
 			Board.ChangeWireValue(wClock, false);
-			 // 1
-
 			Board.ChangeWireValue(wClock, true);
-			 // 2
-
 			Board.ChangeWireValue(wClock, false);
-			 // 2
 
 			Assert.AreEqual(2, getIntRepresentation(wOut));
-			
 		}
 
 		[TestMethod]
@@ -68,7 +55,7 @@ namespace UnitTests
 
 			Board.ChangeWireValue(wStore, true);
 			bool[] bVal = getBoolRepresentation(155);
-			for (int i = 0; i< 16; i++)
+			for (int i = 0; i < 16; i++)
 			{
 				Board.ChangeWireValue(wIn[i], bVal[i]);
 			}

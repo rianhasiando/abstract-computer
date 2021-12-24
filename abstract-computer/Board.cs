@@ -37,6 +37,10 @@ namespace abstractcomputer
 
 			// calculate for the first time
 			wVal[wOut] = !(wVal[wIn1] && wVal[wIn2]);
+
+			// Check for the endgates of this wire
+			CheckChangedGates(wOut);
+			
 			return gIdx;
 		}
 
