@@ -1,6 +1,6 @@
 ﻿namespace abstractcomputer
 {
-    class NOT16Bit
+    public class NOT16Bit
     {
         public int[] _in;
         public int[] _out;

@@ -3,8 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using abstractcomputer;
 namespace UnitTests
 {
-    [TestClass]
-    public class SelectorTests
+	[TestClass]
+	public class SelectorTests
 	{
 		private int wSelect;
 		private int wD1;
@@ -12,13 +12,13 @@ namespace UnitTests
 		private int wOut;
 
 		public SelectorTests()
-        {
-            Board.Reset();
+		{
+			Board.Reset();
 		}
 
-        [TestMethod]
-        public void Selector_TruthTable()
-        {
+		[TestMethod]
+		public void Selector_TruthTable()
+		{
 			wSelect = Board.CreateWire();
 			wD1 = Board.CreateWire();
 			wD0 = Board.CreateWire();
@@ -28,7 +28,7 @@ namespace UnitTests
 			
 			// select d1     d0      0
 			// false, false, false = false
-            Assert.IsFalse(Board.wVal[wOut]);
+			Assert.IsFalse(Board.wVal[wOut]);
 
 			// false, false, true  = true
 			changeInputWireValue(false, false, true);
@@ -65,5 +65,5 @@ namespace UnitTests
 			Board.ChangeWireValue(wD0, vWireD0);
 			Board.ChangeWireValue(wSelect, vWireSelect);
 		}
-    }
+	}
 }

@@ -4,7 +4,7 @@
     // out_1 or out_0
     // if selector is false, then data is outputted to out_0
     // otherwise to out_1
-    class Switch
+    public class Switch
     {
         public int data;
         public int selector;

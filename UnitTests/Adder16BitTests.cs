@@ -40,8 +40,8 @@ namespace UnitTests
 
 		private int add2Values(int val1, int val2, int[] wIn1, int[] wIn2, int[] wOut)
 		{
-			bool[] representation1 = getBoolRepresentation(val1);
-			bool[] representation2 = getBoolRepresentation(val2);
+			bool[] representation1 = Helper.GetBoolRepresentation(val1);
+			bool[] representation2 = Helper.GetBoolRepresentation(val2);
 			for (int i = 0; i < 16; i++)
 			{
 				Board.ChangeWireValue(wIn1[i], representation1[i]);
@@ -54,19 +54,6 @@ namespace UnitTests
 			{
 				if (Board.wVal[wOut[i]])
 					result += multiplier;
-				multiplier *= 2;
-			}
-			return result;
-		}
-
-		// return 16 boolean representation of an int
-		private bool[] getBoolRepresentation(int n)
-		{
-			bool[] result = new bool[16];
-			int multiplier = 1;
-			for (int i = 0; i < 15; i++)
-			{
-				result[i] = (multiplier & n) == multiplier;
 				multiplier *= 2;
 			}
 			return result;

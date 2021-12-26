@@ -66,6 +66,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helper.cs" />
     <Compile Include="FlipFlopTests.cs" />
     <Compile Include="Increment16BitTests.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -73,7 +74,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="NOT16BitTests.cs" />
     <Compile Include="Register16BitTests.cs" />
+    <Compile Include="Switch16WayTests.cs" />
+    <Compile Include="SwitchTests.cs" />
+    <Compile Include="Subtractor16BitTests.cs" />
     <Compile Include="Selector16BitTests.cs" />
     <Compile Include="Counter16BitTests.cs" />
     <Compile Include="Adder16BitTests.cs" />

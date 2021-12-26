@@ -26,46 +26,11 @@ namespace UnitTests
 
             _ = new Increment16Bit(wIn, wOut);
 
-			changeWireValues(wIn, 9283);
-			Assert.AreEqual(9284, getIntRepresentation(wOut));
+			Helper.ChangeWireValues(wIn, 9283);
+			Assert.AreEqual(9284, Helper.GetIntRepresentation(wOut));
 
-			changeWireValues(wIn, 10000);
-			Assert.AreEqual(10001, getIntRepresentation(wOut));
-		}
-
-		// return the integer representation of 16 wire
-		private int getIntRepresentation(int[] w)
-		{
-			int result = 0;
-			int multiplier = 1;
-			for (int i = 0; i < 16; i++)
-			{
-				if (Board.wVal[w[i]]) result += multiplier;
-				multiplier *= 2;
-			}
-			return result;
-		}
-
-		private void changeWireValues(int[] wires, int n)
-		{
-			bool[] bValues = getBoolRepresentation(n);
-			for (int i = 0; i < 16; i++)
-			{
-				Board.ChangeWireValue(wires[i], bValues[i]);
-			}
-		}
-
-		// return 16 boolean representation of an int
-		private bool[] getBoolRepresentation(int n)
-		{
-			bool[] result = new bool[16];
-			int multiplier = 1;
-			for (int i = 0; i < 15; i++)
-			{
-				result[i] = (multiplier & n) == multiplier;
-				multiplier *= 2;
-			}
-			return result;
+			Helper.ChangeWireValues(wIn, 10000);
+			Assert.AreEqual(10001, Helper.GetIntRepresentation(wOut));
 		}
 	}
 }

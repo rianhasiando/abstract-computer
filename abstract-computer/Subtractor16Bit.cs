@@ -1,6 +1,8 @@
 ﻿namespace abstractcomputer
 {
-    class Subtractor16Bit
+	// Subtractor16Bit subtracts two 16bit numbers (in two's complement)
+	// => i1-i2
+	public class Subtractor16Bit
     {
         public int[] a;
         public int[] b;
@@ -20,7 +22,7 @@
                 wOutFirstAdd[i] = Board.CreateWire();
             }
             
-            Increment16Bit n = new Increment16Bit(
+            _ = new Increment16Bit(
                 new Adder16Bit(
                     i1,
                     new NOT16Bit(i2, wOutNotB)._out,
