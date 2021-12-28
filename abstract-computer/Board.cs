@@ -49,6 +49,16 @@ namespace abstractcomputer
 			return wIdx;
 		}
 
+		public static int[] CreateWires(int size)
+		{
+			int[] result = new int[size];
+			for(int i = 0; i < size; i++)
+			{
+				result[i] = CreateWire();
+			}
+			return result;
+		}
+
 		// to change the wire value, 
 		// based on the wire index, and the new value
 		public static void ChangeWireValue(int wire, bool newValue)

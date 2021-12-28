@@ -39,5 +39,15 @@ namespace UnitTests
 				Board.ChangeWireValue(wires[i], bValues[i]);
 			}
 		}
+
+		public static int[] CreateWires(int size)
+		{
+			int[] result = new int[size];
+			for (int i = 0; i < size; i++)
+			{
+				result[i] = Board.CreateWire();
+			}
+			return result;
+		}
 	}
 }
