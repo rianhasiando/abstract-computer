@@ -20,30 +20,30 @@
 			selector = s;
 			_out = o;
 
-			Selector16Bit select_level_1;
-			Selector16Bit[] select_level_2 = new Selector16Bit[2];
-			Selector16Bit[] select_level_3 = new Selector16Bit[4];
-			Selector16Bit[] select_level_4 = new Selector16Bit[8];
-
-			select_level_1 = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[3], o);
-
-			select_level_2[1] = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[2], select_level_1.i_1);
-			select_level_2[0] = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[2], select_level_1.i_0);
-
-			for (int j = 0; j < 2; j++)
+			Selector16Bit select_level_1 = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[3], o);
+			Selector16Bit[] select_level_2 = new Selector16Bit[2]
 			{
-				select_level_3[2 * j + 1] = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[j].i_1);
-				select_level_3[2 * j] = new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[j].i_0);
-			}
-
-			int idx_odd, idx_even;
-			for (int j = 0; j < 4; j++)
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[2], select_level_1.i_0),
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[2], select_level_1.i_1)
+			};
+			Selector16Bit[] select_level_3 = new Selector16Bit[4]
 			{
-				idx_odd = 2 * j + 1;
-				idx_even = 2 * j;
-				select_level_4[idx_odd] = new Selector16Bit(i[2 * idx_odd + 1], i[2 * idx_odd], s[0], select_level_3[j].i_1);
-				select_level_4[idx_even] = new Selector16Bit(i[2 * idx_even + 1], i[2 * idx_even], s[0], select_level_3[j].i_0);
-			}
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[0].i_0),
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[0].i_1),
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[1].i_0),
+				new Selector16Bit(Board.CreateWires(16), Board.CreateWires(16), s[1], select_level_2[1].i_1)
+			};
+			Selector16Bit[] select_level_4 = new Selector16Bit[8]
+			{
+				new Selector16Bit(i[1], i[0], s[0], select_level_3[0].i_0),
+				new Selector16Bit(i[3], i[2], s[0], select_level_3[0].i_1),
+				new Selector16Bit(i[5], i[4], s[0], select_level_3[1].i_0),
+				new Selector16Bit(i[7], i[6], s[0], select_level_3[1].i_1),
+				new Selector16Bit(i[9], i[8], s[0], select_level_3[2].i_0),
+				new Selector16Bit(i[11], i[10], s[0], select_level_3[2].i_1),
+				new Selector16Bit(i[13], i[12], s[0], select_level_3[3].i_0),
+				new Selector16Bit(i[15], i[14], s[0], select_level_3[3].i_1),
+			};
 		}
 	}
 }

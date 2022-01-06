@@ -19,7 +19,7 @@
 			store = s;
 			_out = o;
 
-			Latch l = new Latch(
+			_ = new Latch(
 				cl,
 				new Latch(
 					new AND(

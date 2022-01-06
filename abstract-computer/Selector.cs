@@ -17,7 +17,7 @@
 			selector = s;
 			_out = o;
 
-			int _ = Board.CreateNAND(
+			_ = Board.CreateNAND(
 				Board.gOutputWire[
 					Board.CreateNAND(
 						new NOT(s, Board.CreateWire())._out,
@@ -25,7 +25,13 @@
 						Board.CreateWire()
 					)
 				],
-				Board.gOutputWire[Board.CreateNAND(s, i1, Board.CreateWire())],
+				Board.gOutputWire[
+					Board.CreateNAND(
+						s, 
+						i1, 
+						Board.CreateWire()
+					)
+				],
 				_out
 			);
 		}

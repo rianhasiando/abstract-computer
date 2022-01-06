@@ -19,17 +19,25 @@
 			selector = s;
 			_out = o;
 
-			Switch[] sw_level_1 = new Switch[8];
-			for (int i = 0; i < 8; i++)
+			Switch[] sw_level_1 = new Switch[8]
 			{
-				sw_level_1[i] = new Switch(Board.CreateWire(), s[0], o[2*i+1], o[2*i]);
-			}
+				new Switch(Board.CreateWire(), s[0], o[1], o[0]),
+				new Switch(Board.CreateWire(), s[0], o[3], o[2]),
+				new Switch(Board.CreateWire(), s[0], o[5], o[4]),
+				new Switch(Board.CreateWire(), s[0], o[7], o[6]),
+				new Switch(Board.CreateWire(), s[0], o[9], o[8]),
+				new Switch(Board.CreateWire(), s[0], o[11], o[10]),
+				new Switch(Board.CreateWire(), s[0], o[13], o[12]),
+				new Switch(Board.CreateWire(), s[0], o[15], o[14])
+			};
 
-			Switch[] sw_level_2 = new Switch[4];
-			for (int i = 0; i < 4; i++)
+			Switch[] sw_level_2 = new Switch[4]
 			{
-				sw_level_2[i] = new Switch(Board.CreateWire(), s[1], sw_level_1[2 * i + 1].data, sw_level_1[2 * i].data);
-			}
+				new Switch(Board.CreateWire(), s[1], sw_level_1[1].data, sw_level_1[0].data),
+				new Switch(Board.CreateWire(), s[1], sw_level_1[3].data, sw_level_1[2].data),
+				new Switch(Board.CreateWire(), s[1], sw_level_1[5].data, sw_level_1[4].data),
+				new Switch(Board.CreateWire(), s[1], sw_level_1[7].data, sw_level_1[6].data),
+			};
 
 			Switch[] sw_level_3 = new Switch[2]
 			{

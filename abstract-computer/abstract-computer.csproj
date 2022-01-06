@@ -81,10 +81,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Counter16Bit.cs" />
+    <Compile Include="RAM16.cs" />
     <Compile Include="Register16Bit.cs" />
     <Compile Include="FlipFlop.cs" />
     <Compile Include="Latch.cs" />
-    <Compile Include="RAM64K.cs" />
     <Compile Include="Selector16Bit16Way.cs" />
     <Compile Include="Selector16Bit.cs" />
     <Compile Include="Switch16Way.cs" />

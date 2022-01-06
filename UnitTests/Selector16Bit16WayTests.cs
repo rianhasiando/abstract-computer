@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using abstractcomputer;
 namespace UnitTests
@@ -21,18 +22,30 @@ namespace UnitTests
 			wSelect = Helper.CreateWires(4);
 			wOut = Helper.CreateWires(16);
 
+			int[] randomData = new int[16]
+			{
+				11211, 26412, 47913, 54240,
+				43408, 63288, 47264, 23676,
+				56252, 42567, 61301, 48752,
+				37276, 15943, 33643, 35664
+			};
+
 			for (int i = 0; i < 16; i++)
 			{
 				wInput[i] = Helper.CreateWires(16);
-				Helper.ChangeWireValues(wInput[i], 2*(i + 1));
 			}
 
 			_ = new Selector16Bit16Way(wInput, wSelect, wOut);
 
 			for (int i = 0; i < 16; i++)
 			{
+				Helper.ChangeWireValues(wInput[i], randomData[i]);
+			}
+
+			for (int i = 0; i < 16; i++)
+			{
 				Helper.ChangeWireValues(wSelect, i);
-				Assert.AreEqual(2*(i+1), Helper.GetIntRepresentation(wOut));
+				Assert.AreEqual(randomData[i], Helper.GetIntRepresentation(wOut));
 			}
 		}
 	}

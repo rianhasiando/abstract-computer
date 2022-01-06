@@ -75,7 +75,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="NOT16BitTests.cs" />
-    <Compile Include="RAM64KTests.cs" />
+    <Compile Include="RAM16Tests.cs" />
     <Compile Include="Register16BitTests.cs" />
     <Compile Include="Selector16Bit16WayTests.cs" />
     <Compile Include="Switch16WayTests.cs" />

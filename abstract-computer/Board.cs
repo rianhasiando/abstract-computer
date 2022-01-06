@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
 
 namespace abstractcomputer
 {
 	// the "motherboard"
 	public static class Board
 	{
+		public static bool debug = false;
+		public static Dictionary<int, string> wireNames = new Dictionary<int, string>();
+
 		// a board consists of wires and gates
 		public static int currentIdxWires = -1;
 		public static BitArray wVal = new BitArray(100000000);
@@ -32,8 +36,8 @@ namespace abstractcomputer
 			gInputWire2[gIdx] = wIn2;
 			gOutputWire[gIdx] = wOut;
 
-			wEndGates[wIn1].Add(gIdx);
-			wEndGates[wIn2].Add(gIdx);
+			if (!wEndGates[wIn1].Contains(gIdx)) wEndGates[wIn1].Add(gIdx);
+			if (!wEndGates[wIn2].Contains(gIdx)) wEndGates[wIn2].Add(gIdx);
 
 			// update wire value
 			ChangeWireValue(wOut, !(wVal[wIn1] && wVal[wIn2]));
@@ -84,6 +88,7 @@ namespace abstractcomputer
 		// then update the value
 		private static void CheckChangedGates(int wIdx)
 		{
+			if (debug && wireNames.ContainsKey(wIdx)) Console.Write("{0}->{1}\n", wireNames[wIdx], wVal[wIdx] ? 1 : 0);
 			foreach (int gIdx in wEndGates[wIdx])
 			{
 				int wOut = gOutputWire[gIdx];
@@ -105,6 +110,8 @@ namespace abstractcomputer
 
 		public static void Reset()
 		{
+			debug = false;
+
 			wVal.SetAll(false);
 			Array.Clear(wEndGates, 0, wEndGates.Length);
 			currentIdxWires = -1;
@@ -115,6 +122,7 @@ namespace abstractcomputer
 			currentIdxGates = -1;
 
 			wireToUpdate.Clear();
+			wireNames.Clear();
 		}
 
 	}

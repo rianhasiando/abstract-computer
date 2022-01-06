@@ -18,7 +18,7 @@ namespace UnitTests
 			return result;
 		}
 
-		// return 16 boolean representation of an int
+		// return boolean representation of an int
 		public static bool[] GetBoolRepresentation(int n, int index = 16)
 		{
 			bool[] result = new bool[index];
