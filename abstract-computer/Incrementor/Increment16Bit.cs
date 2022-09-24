@@ -11,11 +11,8 @@
 			_out = o;
 
 			// list of intermediate wires
-			int[] i2 = new int[16];
-			for (int ii = 0; ii<16; ii++)
-			{
-				i2[ii] = Board.CreateWire();
-			}
+			int[] i2 = Board.CreateWires(16);
+
 			// set the value to 0000 0000 0000 0001
 			Board.wVal[i2[0]] = true;
 

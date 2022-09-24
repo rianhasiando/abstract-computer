@@ -50,10 +50,10 @@ namespace UnitTests
 			{
 				// wStore should be set to false first before changing wAddress to another one,
 				// because if not, then data will also be set into previous address that wAddress is pointing to
+				Board.ChangeWireValue(wClock, false);
 				Board.ChangeWireValue(wStore, false);
 				Helper.ChangeWireValues(wAddress, i);
 				Board.ChangeWireValue(wStore, true);
-				Board.ChangeWireValue(wClock, false);
 				Helper.ChangeWireValues(wData, randomData[i]);
 				Assert.AreEqual(0x0, Helper.GetIntRepresentation(wOut));
 			}

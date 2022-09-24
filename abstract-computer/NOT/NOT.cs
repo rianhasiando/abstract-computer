@@ -5,11 +5,11 @@
 		public int _in;
 		public int _out;
 
-		public NOT(int i1, int o)
+		public NOT(int i, int o)
 		{
-			_in = i1;
+			_in = i;
 			_out = o;
-			int gate = Board.CreateNAND(i1, i1, o);
+			_ = Board.CreateNAND(i, i, o);
 		}
 	}
 }

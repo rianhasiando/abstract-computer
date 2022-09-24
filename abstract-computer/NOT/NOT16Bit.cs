@@ -11,7 +11,7 @@
 			_out = o;
 			for(int j=0; j<16; j++)
 			{
-				NOT n = new NOT(i[j], o[j]);
+				_ = new NOT(i[j], o[j]);
 			}
 		}
 	}

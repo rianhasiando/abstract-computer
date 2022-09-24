@@ -8,20 +8,24 @@ namespace abstractcomputer
 	// the "motherboard"
 	public static class Board
 	{
-		public static bool debug = false;
-		public static Dictionary<int, string> wireNames = new Dictionary<int, string>();
+		private static bool debug = false; // change this to toggle the debug mode
+
+		// change this value to configure the maximum number of 
+		// gates and wires that can be contained
+		private static readonly int numMaxWires = 100000000;
+		private static readonly int numMaxGates = 100000000;
 
 		// a board consists of wires and gates
 		public static int currentIdxWires = -1;
-		public static BitArray wVal = new BitArray(100000000);
-		public static List<int>[] wEndGates = new List<int>[100000000];
+		public static BitArray wVal = new BitArray(numMaxWires);
+		public static List<int>[] wEndGates = new List<int>[numMaxWires];
 
 		public static int currentIdxGates = -1;
-		public static int[] gInputWire1 = new int[100000000];
-		public static int[] gInputWire2 = new int[100000000];
-		public static int[] gOutputWire = new int[100000000];
+		public static int[] gInputWire1 = new int[numMaxGates];
+		public static int[] gInputWire2 = new int[numMaxGates];
+		public static int[] gOutputWire = new int[numMaxGates];
 
-		// only used to cascade-update the wires value
+		// only used to update the wires value sequentially
 		private static Queue<int> wireToUpdate = new Queue<int>();
 
 		// native implementation to create a NAND gate
@@ -36,8 +40,8 @@ namespace abstractcomputer
 			gInputWire2[gIdx] = wIn2;
 			gOutputWire[gIdx] = wOut;
 
-			if (!wEndGates[wIn1].Contains(gIdx)) wEndGates[wIn1].Add(gIdx);
-			if (!wEndGates[wIn2].Contains(gIdx)) wEndGates[wIn2].Add(gIdx);
+			wEndGates[wIn1].Add(gIdx);
+			wEndGates[wIn2].Add(gIdx);
 
 			// update wire value
 			ChangeWireValue(wOut, !(wVal[wIn1] && wVal[wIn2]));
@@ -49,6 +53,7 @@ namespace abstractcomputer
 		public static int CreateWire()
 		{
 			int wIdx = ++currentIdxWires;
+			wVal[wIdx] = false;
 			wEndGates[wIdx] = new List<int>();
 			return wIdx;
 		}
@@ -63,8 +68,9 @@ namespace abstractcomputer
 			return result;
 		}
 
-		// to change the wire value, 
+		// to change the wire value
 		// based on the wire index, and the new value
+		// also propagates the changes to other wires if connected
 		public static void ChangeWireValue(int wire, bool newValue)
 		{
 			// if the value isn't changed then nothing to do
@@ -88,7 +94,6 @@ namespace abstractcomputer
 		// then update the value
 		private static void CheckChangedGates(int wIdx)
 		{
-			if (debug && wireNames.ContainsKey(wIdx)) Console.Write("{0}->{1}\n", wireNames[wIdx], wVal[wIdx] ? 1 : 0);
 			foreach (int gIdx in wEndGates[wIdx])
 			{
 				int wOut = gOutputWire[gIdx];
@@ -102,7 +107,7 @@ namespace abstractcomputer
 					// update the value
 					wVal[wOut] = v;
 
-					// add the wire index to the queue
+					// add the wire index to the queue end
 					wireToUpdate.Enqueue(wOut);
 				}
 			}
@@ -122,9 +127,7 @@ namespace abstractcomputer
 			currentIdxGates = -1;
 
 			wireToUpdate.Clear();
-			wireNames.Clear();
 		}
 
 	}
-
 }

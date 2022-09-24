@@ -11,9 +11,12 @@
 			in1 = i1;
 			in2 = i2;
 			_out = o;
-			int wireOutNand = Board.CreateWire();
-			_ = Board.CreateNAND(i1, i2, wireOutNand);
-			_ = new NOT(wireOutNand, o);
+			_ = new NOT(
+				Board.gOutputWire[
+					Board.CreateNAND(i1, i2, Board.CreateWire())
+				], 
+				o
+			);
 		}
 	}
 }

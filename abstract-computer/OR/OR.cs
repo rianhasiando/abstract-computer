@@ -11,11 +11,12 @@
 			in1 = i1;
 			in2 = i2;
 			_out = o;
-			NOT gateNot1 = new NOT(i1, Board.CreateWire());
-			
-			NOT gateNot2 = new NOT(i2, Board.CreateWire());
 
-			_ = Board.CreateNAND(gateNot1._out, gateNot2._out, o);
+			_ = Board.CreateNAND(
+				new NOT(i1, Board.CreateWire())._out,
+				new NOT(i2, Board.CreateWire())._out, 
+				o
+			);
 		}
 	}
 }

@@ -42,7 +42,7 @@
 				outwire[i] = Board.CreateWires(16);
 			}
 
-			Register16Bit[] listRegister = new Register16Bit[16]
+			_ = new Register16Bit[16]
 			{
 				new Register16Bit( d, inwire[0], cl, outwire[0]),
 				new Register16Bit( d, inwire[1], cl, outwire[1]),
