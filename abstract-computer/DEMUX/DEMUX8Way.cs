@@ -3,7 +3,7 @@
 	public class DEMUX8Way
 	{
 		public int input;
-		public int[] selector; // 3 wire selector
+		public int[] selector; // 3 wire selector (index 0 = LSB up to 2 = MSB)
 		public int out1;
 		public int out2;
 		public int out3;

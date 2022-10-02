@@ -82,10 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AND\AND16Bit.cs" />
-    <Compile Include="Counter16Bit.cs" />
+    <Compile Include="Bit\Bit.cs" />
+    <Compile Include="Counter\Counter16Bit.cs" />
     <Compile Include="DEMUX\DEMUX8Way.cs" />
     <Compile Include="DEMUX\DEMUX4Way.cs" />
     <Compile Include="DEMUX\DEMUX.cs" />
+    <Compile Include="D Flip-Flop\DFF.cs" />
     <Compile Include="MUX\MUX8Way16Bit.cs" />
     <Compile Include="MUX\MUX4Way16Bit.cs" />
     <Compile Include="MUX\MUX16bit.cs" />
@@ -93,17 +95,13 @@
     <Compile Include="OR\OR16Way.cs" />
     <Compile Include="OR\OR8Way.cs" />
     <Compile Include="OR\OR16Bit.cs" />
-    <Compile Include="RAM16.cs" />
-    <Compile Include="Register16Bit.cs" />
-    <Compile Include="FlipFlop.cs" />
-    <Compile Include="Latch.cs" />
-    <Compile Include="Selector16Bit16Way.cs" />
-    <Compile Include="Selector16Bit.cs" />
-    <Compile Include="Switch16Way.cs" />
-    <Compile Include="Switch.cs" />
-    <Compile Include="Selector.cs" />
+    <Compile Include="RAM\RAM16Kwidth16.cs" />
+    <Compile Include="RAM\RAM4Kwidth16.cs" />
+    <Compile Include="RAM\RAM512width16.cs" />
+    <Compile Include="RAM\RAM64width16.cs" />
+    <Compile Include="RAM\RAM8width16.cs" />
+    <Compile Include="Register16Bit\Register16Bit.cs" />
     <Compile Include="NOT\NOT16Bit.cs" />
-    <Compile Include="Subtractor16Bit.cs" />
     <Compile Include="Incrementor\Increment16Bit.cs" />
     <Compile Include="Adder\Adder16Bit.cs" />
     <Compile Include="Adder\FullAdder.cs" />
